@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>from data Sheets</title>
+  <style type="text/css">
+    * {
+      margin: 0;
+
+    }
+
+    body {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      background-image: url("Prosanta.png");
+      justify-content: center;
+      background-color: #1d2060;
+
+    }
+
+    form {
+      width: 420px;
+      height: auto;
+
+      padding: 80px;
+      border-radius: 40px;
+      background-color: #23c536f3;
+
+    }
+
+    .text-center {
+      font-family: Algerian;
+      font-size: x-large;
+      color: rgba(255, 255, 255, 0.955);
+    }
+
+    .text-center:hover {
+      color: rgb(235, 0, 0);
+    }
+
+
+    @media only screen and (max-width:600px) {
+      .box {
+        background-color: #1d2060;
+      }
+
+      .container {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media only screen and (max-width:400px) {
+      body {
+        text-align: center;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <form name="submit-to-google-sheet">
+    <h2 class="text-center">User Registeration</h2>
+
+    <label>Name</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Email</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>Phone</label><br>
+    <input type="phone" name="phone" required><br><br>
+
+    <label>Gender</label><br>
+    <input type="radio" name="gender" value="Male"><label>Male</label>
+    <input type="radio" name="gender" value="Male"><label>Female</label><br>
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="tnc" />
+      <table for="tnc">Accepts terms and conditions</table><br>
+    </div>
+
+
+
+
+
+    <div class="mb-3">
+
+      <label for="department">Department</label>
+      <select name="department" id="department" class="form-select">
+        <option value="kiln">Kiln</option>
+        <option value="Glaze Line">Glaze Line</option>
+        <option value="Press">Press</option>
+        <option value="Lab">Lab</option>
+        <option value="S,Q">S,Q</option>
+        <option value="Mecanical">Mecanical</option>
+        <option value="Soting">Soting</option>
+        <option value="Body">Body</option>
+        <option value="Elactical">Elactical</option>
+        <option value="Other">Other</option>
+      </select><br><br>
+      <div class="mb-3">
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday"> <br>
+      </div>
+
+
+
+
+    </div>
+    <label>Message</label><br>
+
+
+    <textarea name="message" cols="20" required></textarea><br>
+    <label name="file" method="file" action="file">
+      <input type="file" accept="amagr/*">
+    </label><br>
+    <br>
+    <input type="submit" name="submit"><br>
+
+
+
+
+    <span id="success"></span><br>
+
+
+
+
+
+    <script>
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbxupEZzkEQ6f1sikWAAqliSAjN-2LTNYIWqifxG_Tr96mOIb-idfgvaPzVzCwPPvTTM/exec';
+      const form = document.forms['submit-to-google-sheet']
+      const Success = document.getElementById('success');
+
+      form.addEventListener('submit', e => {
+        e.preventDefault()
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+          .then(response => {
+            Success.innerHTML = "data successfully submit";
+            setTimeout(function () {
+              Success.innerHTML = "";
+            }, 5000)
+            form.reset();
+
+          })
+          .catch(error => console.error('Error!', error.message))
+      })
+    </script>
+  </form>
+</body>
+
+</html>
